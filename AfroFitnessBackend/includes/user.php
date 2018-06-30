@@ -12,39 +12,36 @@ class user
 
     function __construct()
     {
-        require_once dirname(__FILE__).'DBConnector.php';
+        require_once dirname(__FILE__).'/DBConnector.php';
         $db = new DBConnector();
         $this->conn = $db->connect();
     }
 
     function register($first_name,$last_name,$email,$password,$gender){
         if(!$this->doesUserExist($email)){
-            $pass = $this->hashPassword($password);
+            $pass = password_hash($password,PASSWORD_DEFAULT);
             $stmt = $this->conn->prepare("INSERT INTO users_094781(first_name,last_name,email,password,gender)VALUES(?,?,?,?,?)");
-            $stmt->bind_param("ssss",$first_name,$last_name,$email,$pass,$gender);
-            if ($stmt->execute()) {
-                return USER_CREATED;
-            }
-            else {
-                return USER_CREATION_FAILED;
-            }
+            $stmt->bind_param("sssss",$first_name,$last_name,$email,$pass,$gender);
+            if ($stmt->execute())
+				return USER_CREATED;
+			return USER_CREATION_FAILED;
         }
         return USER_EXIST;
     }
 
     function login($email, $pass)
     {
-        $password = password_verify($pass);
-        $stmt = $this->con->prepare("SELECT id FROM users_094781 WHERE email = ? AND password = ?");
-        $stmt->bind_param("ss", $email, $password);
-        $stmt->execute();
-        $stmt->store_result();
-        return $stmt->num_rows > 0;
-    }
+		$res = mysqli_query($this->conn,"SELECT * FROM users_094781") or die("Error: ".mysqli_error($conn->conn));
 
-    public function hashPassword($password)
-    {
-        password_hash($password,PASSWORD_DEFAULT);
+        while ($row=mysqli_fetch_array($res)){
+            if(password_verify($pass,$row['password']) && $email==$row['email']){
+				$stmt = $this->conn->prepare("SELECT id FROM users_094781 WHERE email = ? AND password = ?");
+				$stmt->bind_param("ss", $email, $row['password']);
+				$stmt->execute();
+				$stmt->store_result();
+				return $stmt->num_rows > 0;
+            }
+        }
     }
 
     function getUser($email){
