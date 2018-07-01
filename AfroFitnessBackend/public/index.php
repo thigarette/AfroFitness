@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
 require_once '../includes/user.php';
+require_once '../includes/instructor.php';
 
 $app = new \Slim\App([
    'settings' => [
@@ -68,6 +69,85 @@ $app->post('/login',function(Request $request,Response $response){
         }
         $response->getBody()->write(json_encode($responseData));
     }
+});
+
+$app->post('/update/{id}', function (Request $request, Response $response) {
+    if(areTheseParametersAvailable(array('first_name','last_name','email','preferred_workout_location','age','gender','weight_kg','target_weight_kg'))){
+        $id = $request->getAttribute('id');
+
+        $requestData = $request->getParsedBody();
+
+        $first_name = $requestData['first_name'];
+        $last_name = $requestData['last_name'];
+        $email = $requestData['email'];
+        $preferred_workout_location = $requestData['preferred_workout_location'];
+        $age = $requestData['age'];
+        $gender = $requestData['gender'];
+        $weight = $requestData['weight_kg'];
+        $target_weight = $requestData['target_weight_kg'];
+
+
+        $db = new user();
+
+        $responseData = array();
+
+        if ($db->updateProfile($id, $first_name, $last_name, $email, $preferred_workout_location, $age, $gender, $weight, $target_weight)) {
+            $responseData['error'] = false;
+            $responseData['message'] = 'Profile Updated Successfully';
+            $responseData['user'] = $db->getUser($email);
+        } else {
+            $responseData['error'] = true;
+            $responseData['message'] = 'Update Failed';
+        }
+
+        $response->getBody()->write(json_encode($responseData));
+    }
+});
+
+$app->post('/addsession', function (Request $request, Response $response) {
+    if (areTheseParametersAvailable(array('date', 'location_id', 'exercise_type', 'number_of_reps','number_of_sets','user_id'))) {
+        $requestData = $request->getParsedBody();
+        $date = $requestData['date'];
+        $location = $requestData['location_id'];
+        $exercise_type = $requestData['exercise_type'];
+        $number_of_reps = $requestData['number_of_reps'];
+        $number_of_sets = $requestData['number_of_sets'];
+        $user = $requestData['user_id'];
+
+        $db = new user();
+
+        $responseData = array();
+
+        if ($db->addSession($date,$location,$exercise_type,$number_of_reps,$number_of_sets,$user)) {
+            $responseData['error'] = false;
+            $responseData['message'] = 'Workout Session Added Successfully';
+        } else {
+            $responseData['error'] = true;
+            $responseData['message'] = 'Could Not Add Workout Session';
+        }
+
+        $response->getBody()->write(json_encode($responseData));
+    }
+});
+
+$app->get('/sessions/{id}', function (Request $request, Response $response) {
+    $user_id = $request->getAttribute('id');
+    $db = new user();
+    $sessions = $db->getSessions($user_id);
+    $response->getBody()->write(json_encode(array("sessions" => $sessions)));
+});
+
+$app->get('/locations', function (Request $request, Response $response) {
+    $db = new user();
+    $locations = $db->getLocations();
+    $response->getBody()->write(json_encode(array("locations" => $locations)));
+});
+
+
+$app->get('/instructors', function (Request $request, Response $response) {
+    $db = new instructor();
+    $instructors = $db->getAllInstructors();
+    $response->getBody()->write(json_encode(array("instructors" => $instructors)));
 });
 
 function areTheseParametersAvailable($required_fields){

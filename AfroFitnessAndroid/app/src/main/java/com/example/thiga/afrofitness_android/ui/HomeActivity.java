@@ -1,8 +1,12 @@
 package com.example.thiga.afrofitness_android.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,11 +16,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.thiga.afrofitness_android.R;
+import com.example.thiga.afrofitness_android.helper.SharedPrefManager;
+import com.example.thiga.afrofitness_android.ui.fragments.HomeFragment;
+import com.example.thiga.afrofitness_android.ui.fragments.ProfileFragment;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener {
+
+    private TextView textViewFirstName;
+    private TextView textViewLastName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +53,21 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
+        View headerView = navigationView.getHeaderView(0);
+//        textViewFirstName = (TextView) headerView.findViewById(R.id.text_view_first_name);
+//        textViewLastName = (TextView) headerView.findViewById(R.id.text_view_last_name);
+//        textViewFirstName.setText(SharedPrefManager.getInstance(this).getUser().getFirstName());
+//        textViewLastName.setText(SharedPrefManager.getInstance(this).getUser().getLastName());
+
+        //loading home fragment by default
+        displaySelectedScreen(R.id.nav_home);
+
     }
 
     @Override
@@ -76,28 +102,53 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    private void displaySelectedScreen(int itemId) {
+        Fragment fragment = null;
+        switch (itemId) {
+            case R.id.nav_home:
+                fragment = new HomeFragment();
+                break;
+            case R.id.nav_profile:
+                fragment = new ProfileFragment();
+                break;
+//            case R.id.nav_sessions:
+//                fragment = new SessionsFragment();
+//                break;
+//            case R.id.nav_instructors:
+//                fragment = new InstructorsFragment();
+//                break;
+            case R.id.nav_logout:
+                logout();
+                break;
+        }
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        //replacing the fragment
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, fragment);
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    private void logout(){
+        SharedPrefManager.getInstance(this).logout();
+        finish();
+        startActivity(new Intent(this, LoginActivity.class));
+
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        displaySelectedScreen(item.getItemId());
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
