@@ -22,6 +22,11 @@ public class Result {
         return error;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+
     public User getUser(){
         return user;
     }

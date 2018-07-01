@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.thiga.afrofitness_android.R;
+import com.example.thiga.afrofitness_android.helper.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -15,6 +16,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(this, HomeActivity.class));
+        }
 
         buttonSignIn = findViewById(R.id.button_sign_in);
         buttonSignUp = findViewById(R.id.button_sign_up);

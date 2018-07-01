@@ -24,6 +24,12 @@ public class User {
         this.gender = gender;
     }
 
+    public User(int id,String email,String gender){
+        this.id = id;
+        this.email = email;
+        this.gender = gender;
+    }
+
     public User(int id,String first_name,String last_name,String email,String password,String gender){
         this.first_name = first_name;
         this.last_name = last_name;

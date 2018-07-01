@@ -1,6 +1,7 @@
 package com.example.thiga.afrofitness_android.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.example.thiga.afrofitness_android.R;
 import com.example.thiga.afrofitness_android.api.ApiService;
 import com.example.thiga.afrofitness_android.api.ApiUrl;
+import com.example.thiga.afrofitness_android.helper.SharedPrefManager;
 import com.example.thiga.afrofitness_android.models.Result;
 import com.example.thiga.afrofitness_android.models.User;
 
@@ -75,7 +77,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onResponse(Call<Result> call, Response<Result> response) {
                 progressDialog.dismiss();
 
-                Toast.makeText(getApplicationContext(),response.message(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_LONG).show(); //Not showing message properly
+                if(!response.body().getError()){
+                    finish();
+                    SharedPrefManager.getInstance(getApplicationContext()).login(response.body().getUser());
+                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                }
             }
 
             @Override
