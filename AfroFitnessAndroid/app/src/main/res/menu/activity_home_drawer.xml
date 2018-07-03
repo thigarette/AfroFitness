@@ -7,23 +7,23 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Profile" />
+            android:title="@string/profile" />
         <item
             android:id="@+id/nav_sessions"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Workout Sessions" />
+            android:title="@string/workout_sessions" />
         <item
             android:id="@+id/nav_instructors"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Instructors" />
+            android:title="@string/instructors" />
 
         <item
             android:id="@+id/nav_logout"
-            android:title="Logout"/>
+            android:title="@string/logout"/>
     </group>
 
     <item android:title="Communicate">

@@ -1,6 +1,8 @@
 package com.example.thiga.afrofitness_android.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +21,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.thiga.afrofitness_android.R;
+import com.example.thiga.afrofitness_android.helper.LocaleHelper;
 import com.example.thiga.afrofitness_android.helper.SharedPrefManager;
 import com.example.thiga.afrofitness_android.ui.fragments.HomeFragment;
 import com.example.thiga.afrofitness_android.ui.fragments.InstructorsFragment;
 import com.example.thiga.afrofitness_android.ui.fragments.ProfileFragment;
 import com.example.thiga.afrofitness_android.ui.fragments.SessionsFragment;
+
+import io.paperdb.Paper;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener,
@@ -87,7 +92,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.menu_language, menu);
         return true;
     }
 
@@ -96,14 +101,23 @@ public class HomeActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(item.getItemId()==R.id.language_en){
+            Paper.book().write("language","en");
+            updateView((String)Paper.book().read("language"));
         }
+        else if(item.getItemId()==R.id.language_sw){
+            Paper.book().write("language","sw");
+            updateView((String)Paper.book().read("language"));
+        }
+        return true;
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void updateView(String lang) {
+        Context context = LocaleHelper.setLocale(this,lang);
+        Resources resources = context.getResources();
+        context.getResources();
+        startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+        finish();
     }
 
     private void displaySelectedScreen(int itemId) {

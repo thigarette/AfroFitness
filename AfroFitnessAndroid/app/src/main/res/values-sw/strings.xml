@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AfroFitness</string>
+    <string name="title_activity_login">Ingia</string>
+    <string name="prompt_email">Barua Pepe</string>
+    <string name="prompt_password">Nenosiri</string>
+    <string name="action_sign_in_short">Ingia</string>
+    <string name="action_settings">Mipangilio</string>
+    <string name="sign_in">Ingia</string>
+    <string name="enter_first_name">Ingiza Jina La Kwanza</string>
+    <string name="enter_last_name">Ingiza Jina La Familia</string>
+    <string name="enter_email">Ingiza Barua Pepe</string>
+    <string name="enter_password">Ingiza Nenosiri</string>
+    <string name="select_gender">Chagua Umri</string>
+    <string name="male">Kiume</string>
+    <string name="female">Kike</string>
+    <string name="login">Ingia</string>
+    <string name="home">Nyumbani</string>
+    <string name="profile">Wasifu</string>
+    <string name="workout_sessions">Vipindi vya mazoezi</string>
+    <string name="instructors">Wakufunzi</string>
+    <string name="logout">Toka</string>
+    <string name="edit_profile">Badilisha Wasifu</string>
+    <string name="first_name">Jina La Kwanza</string>
+    <string name="last_name">Jina La Famila</string>
+    <string name="age">Umri</string>
+    <string name="gender">Jinsia</string>
+    <string name="preferred_workout_location">Eneo Ya Mazoezi Unayopenda</string>
+    <string name="weight_kg">Uzito (kg)</string>
+    <string name="target_weight_kg">Uzito unataka (kg)</string>
+    <string name="sign_up">Jiandikisha</string>
+    <string name="email">Barua Pepe</string>
+    <string name="action_sign_in">Ingia au Jiandikisha</string>
+    <string name="password">Nenosiri</string>
+    <string name="update_profile">Sasisha Wasifu</string>
+</resources>
