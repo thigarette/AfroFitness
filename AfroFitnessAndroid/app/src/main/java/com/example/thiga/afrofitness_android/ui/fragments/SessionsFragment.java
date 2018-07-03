@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,9 @@ import android.widget.Toast;
 import com.example.thiga.afrofitness_android.R;
 import com.example.thiga.afrofitness_android.api.ApiService;
 import com.example.thiga.afrofitness_android.api.ApiUrl;
+import com.example.thiga.afrofitness_android.helper.SessionAdapter;
 import com.example.thiga.afrofitness_android.helper.SharedPrefManager;
-import com.example.thiga.afrofitness_android.helper.UserAdapter;
-import com.example.thiga.afrofitness_android.models.Users;
+import com.example.thiga.afrofitness_android.models.Sessions;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,14 +29,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ProfileFragment.OnFragmentInteractionListener} interface
+ * {@link SessionsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ProfileFragment#newInstance} factory method to
+ * Use the {@link SessionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
-    private RecyclerView recyclerViewProfile;
+public class SessionsFragment extends Fragment {
+    private RecyclerView recyclerViewSessions;
     private RecyclerView.Adapter adapter;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ProfileFragment() {
+    public SessionsFragment() {
         // Required empty public constructor
     }
 
@@ -59,11 +59,11 @@ public class ProfileFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
+     * @return A new instance of fragment SessionsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
+    public static SessionsFragment newInstance(String param1, String param2) {
+        SessionsFragment fragment = new SessionsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -84,16 +84,18 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_sessions, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Profile");
-        recyclerViewProfile = (RecyclerView) view.findViewById(R.id.recycler_view_profile);
-        recyclerViewProfile.setHasFixedSize(true);
-        recyclerViewProfile.setLayoutManager(new LinearLayoutManager(getActivity()));
+        getActivity().setTitle("Workout Sessions");
+
+        recyclerViewSessions = (RecyclerView) view.findViewById(R.id.recycler_view_sessions);
+        recyclerViewSessions.setHasFixedSize(true);
+        recyclerViewSessions.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiUrl.BASE_URL)
@@ -103,20 +105,21 @@ public class ProfileFragment extends Fragment {
         ApiService service = retrofit.create(ApiService.class);
 
 
-        Call<Users> call = service.getUser(SharedPrefManager.getInstance(getActivity()).getUser().getEmail());
+        Call<Sessions> call = service.getSessions(SharedPrefManager.getInstance(getActivity()).getUser().getId());
 
-        call.enqueue(new Callback<Users>() {
+        call.enqueue(new Callback<Sessions>() {
             @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
-                adapter = new UserAdapter(response.body().getUser(), getActivity());
-                recyclerViewProfile.setAdapter(adapter);
+            public void onResponse(Call<Sessions> call, Response<Sessions> response) {
+                adapter = new SessionAdapter(response.body().getSessions(), getActivity());
+                recyclerViewSessions.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<Users> call, Throwable t) {
+            public void onFailure(Call<Sessions> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

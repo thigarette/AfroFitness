@@ -71,6 +71,13 @@ $app->post('/login',function(Request $request,Response $response){
     }
 });
 
+$app->get('/user/{email}',function (Request $request, Response $response){
+    $email = $request->getAttribute('email');
+    $db = new user();
+    $user = $db->getUserArray($email);
+    $response->getBody()->write(json_encode(array("user" => $user)));
+});
+
 $app->post('/update/{id}', function (Request $request, Response $response) {
     if(areTheseParametersAvailable(array('first_name','last_name','email','preferred_workout_location','age','gender','weight_kg','target_weight_kg'))){
         $id = $request->getAttribute('id');

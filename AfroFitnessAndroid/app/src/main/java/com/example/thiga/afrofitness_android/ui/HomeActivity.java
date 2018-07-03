@@ -21,10 +21,14 @@ import android.widget.TextView;
 import com.example.thiga.afrofitness_android.R;
 import com.example.thiga.afrofitness_android.helper.SharedPrefManager;
 import com.example.thiga.afrofitness_android.ui.fragments.HomeFragment;
+import com.example.thiga.afrofitness_android.ui.fragments.InstructorsFragment;
 import com.example.thiga.afrofitness_android.ui.fragments.ProfileFragment;
+import com.example.thiga.afrofitness_android.ui.fragments.SessionsFragment;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnFragmentInteractionListener,
+        ProfileFragment.OnFragmentInteractionListener,SessionsFragment.OnFragmentInteractionListener,
+        InstructorsFragment.OnFragmentInteractionListener{
 
     private TextView textViewFirstName;
     private TextView textViewLastName;
@@ -111,12 +115,12 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_profile:
                 fragment = new ProfileFragment();
                 break;
-//            case R.id.nav_sessions:
-//                fragment = new SessionsFragment();
-//                break;
-//            case R.id.nav_instructors:
-//                fragment = new InstructorsFragment();
-//                break;
+            case R.id.nav_sessions:
+                fragment = new SessionsFragment();
+                break;
+            case R.id.nav_instructors:
+                fragment = new InstructorsFragment();
+                break;
             case R.id.nav_logout:
                 logout();
                 break;
