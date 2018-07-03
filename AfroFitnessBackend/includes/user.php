@@ -125,7 +125,7 @@ class user
         $user['age'] = $age;
         $user['gender'] = $gender;
         $user['weight_kg'] = $weight;
-        $user['target_weight'] = $target_weight;
+        $user['target_weight_kg'] = $target_weight;
         return $user;
     }
 	
@@ -145,7 +145,7 @@ class user
         $temp['age'] = $age;
         $temp['gender'] = $gender;
         $temp['weight_kg'] = $weight;
-        $temp['target_weight'] = $target_weight;
+        $temp['target_weight_kg'] = $target_weight;
 		array_push($user,$temp);
         return $user;
     }

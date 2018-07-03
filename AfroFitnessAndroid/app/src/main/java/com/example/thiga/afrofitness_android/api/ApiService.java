@@ -4,7 +4,6 @@ import com.example.thiga.afrofitness_android.models.Instructors;
 import com.example.thiga.afrofitness_android.models.Result;
 import com.example.thiga.afrofitness_android.models.Sessions;
 import com.example.thiga.afrofitness_android.models.User;
-import com.example.thiga.afrofitness_android.models.Users;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -31,8 +30,20 @@ public interface ApiService {
             @Field("password") String password
     );
 
-    @GET("user/{email}")
-    Call<Users> getUser(@Path("email")String email);
+    @FormUrlEncoded
+    @POST("update/{id}")
+    Call<Result> updateUser(
+            @Path("id") int id,
+            @Field("first_name") String first_name,
+            @Field("last_name") String last_name,
+            @Field("email") String email,
+            @Field("preferred_workout_location") String preferred_workout_location,
+            @Field("age") int age,
+            @Field("gender") String gender,
+            @Field("weight_kg") int weight,
+            @Field("target_weight_kg") int target_weight
+    );
+
 
     @GET("sessions/{id}")
     Call<Sessions> getSessions(@Path("id") int id);

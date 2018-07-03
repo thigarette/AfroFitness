@@ -1,6 +1,7 @@
 package com.example.thiga.afrofitness_android.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,14 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thiga.afrofitness_android.R;
 import com.example.thiga.afrofitness_android.api.ApiService;
 import com.example.thiga.afrofitness_android.api.ApiUrl;
 import com.example.thiga.afrofitness_android.helper.SharedPrefManager;
-import com.example.thiga.afrofitness_android.helper.UserAdapter;
-import com.example.thiga.afrofitness_android.models.Users;
+import com.example.thiga.afrofitness_android.models.User;
+import com.example.thiga.afrofitness_android.ui.UpdateProfileActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,8 +39,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
-    private RecyclerView recyclerViewProfile;
-    private RecyclerView.Adapter adapter;
+
+    private TextView textViewFirstName,textViewLastName,textViewEmail,textViewPrefLocation,textViewAge,
+            textViewGender,textViewWeight,textViewTargetWeight;
+    private Button buttonEditProfile;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,39 +89,41 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        buttonEditProfile = v.findViewById(R.id.button_edit_profile);
+        buttonEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), UpdateProfileActivity.class));
+            }
+        });
+        return v;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Profile");
-        recyclerViewProfile = (RecyclerView) view.findViewById(R.id.recycler_view_profile);
-        recyclerViewProfile.setHasFixedSize(true);
-        recyclerViewProfile.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiUrl.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        textViewFirstName = view.findViewById(R.id.text_view_first_name);
+        textViewLastName = view.findViewById(R.id.text_view_last_name);
+        textViewEmail = view.findViewById(R.id.text_view_email);
+        textViewPrefLocation = view.findViewById(R.id.text_view_pref_location);
+        textViewAge = view.findViewById(R.id.text_view_age);
+        textViewGender = view.findViewById(R.id.text_view_gender);
+        textViewWeight = view.findViewById(R.id.text_view_weight);
+        textViewTargetWeight = view.findViewById(R.id.text_view_target_weight);
 
-        ApiService service = retrofit.create(ApiService.class);
+        User user = SharedPrefManager.getInstance(getActivity()).getUser();
 
-
-        Call<Users> call = service.getUser(SharedPrefManager.getInstance(getActivity()).getUser().getEmail());
-
-        call.enqueue(new Callback<Users>() {
-            @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
-                adapter = new UserAdapter(response.body().getUser(), getActivity());
-                recyclerViewProfile.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        textViewFirstName.setText(user.getFirstName());
+        textViewLastName.setText(user.getLastName());
+        textViewEmail.setText(user.getEmail());
+        textViewPrefLocation.setText(user.getPreferredWorkout());
+        textViewAge.setText(String.valueOf(user.getAge()));
+        textViewGender.setText(user.getGender());
+        textViewWeight.setText(String.valueOf(user.getWeight()));
+        textViewTargetWeight.setText(String.valueOf(user.getTargetWeight()));
     }
 
     // TODO: Rename method, update argument and hook method into UI event

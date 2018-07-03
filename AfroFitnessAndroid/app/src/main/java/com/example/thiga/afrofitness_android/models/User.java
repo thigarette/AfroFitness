@@ -6,12 +6,15 @@ public class User {
     private String last_name;
     private String email;
     private String password;
-    private String gender;
     private String preferred_workout;
     private int age;
+    private String gender;
     private int weight;
     private int target_weight;
     //Constructors
+    public User(){
+        
+    }
     public User(String first_name,String last_name,String email,String password,String gender){
         this.first_name = first_name;
         this.last_name = last_name;
@@ -41,27 +44,39 @@ public class User {
         this.gender = gender;
     }
 
-    public User(int id, String first_name, String last_name, String email, String password, String gender, String preferred_workout, int age, int weight, int target_weight) {
+    public User(int id, String first_name, String last_name, String email, String password, String preferred_workout, int age, String gender, int weight, int target_weight) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
-        this.gender = gender;
         this.preferred_workout = preferred_workout;
         this.age = age;
+        this.gender = gender;
         this.weight = weight;
         this.target_weight = target_weight;
     }
 
-    public User(int id, String first_name, String last_name, String email, String gender, String preferred_workout, int age, int weight, int target_weight) {
+    public User(int id, String first_name, String last_name, String email, String preferred_workout, int age, String gender, int weight, int target_weight) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
-        this.gender = gender;
         this.preferred_workout = preferred_workout;
         this.age = age;
+        this.gender = gender;
+        this.weight = weight;
+        this.target_weight = target_weight;
+    }
+
+    public User(String first_name, String last_name, String email, String password, String preferred_workout, int age, String gender, int weight, int target_weight) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.password = password;
+        this.preferred_workout = preferred_workout;
+        this.age = age;
+        this.gender = gender;
         this.weight = weight;
         this.target_weight = target_weight;
     }
