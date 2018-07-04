@@ -6,10 +6,10 @@ public class User {
     private String last_name;
     private String email;
     private String password;
-    private String preferred_workout;
+    private String preferred_workout_location;
     private int age;
     private String gender;
-    private int weight;
+    private int weight_kg;
     private int target_weight;
     //Constructors
     public User(){
@@ -50,10 +50,10 @@ public class User {
         this.last_name = last_name;
         this.email = email;
         this.password = password;
-        this.preferred_workout = preferred_workout;
+        this.preferred_workout_location = preferred_workout;
         this.age = age;
         this.gender = gender;
-        this.weight = weight;
+        this.weight_kg = weight;
         this.target_weight = target_weight;
     }
 
@@ -62,10 +62,10 @@ public class User {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
-        this.preferred_workout = preferred_workout;
+        this.preferred_workout_location = preferred_workout;
         this.age = age;
         this.gender = gender;
-        this.weight = weight;
+        this.weight_kg = weight;
         this.target_weight = target_weight;
     }
 
@@ -74,10 +74,10 @@ public class User {
         this.last_name = last_name;
         this.email = email;
         this.password = password;
-        this.preferred_workout = preferred_workout;
+        this.preferred_workout_location = preferred_workout;
         this.age = age;
         this.gender = gender;
-        this.weight = weight;
+        this.weight_kg = weight;
         this.target_weight = target_weight;
     }
 
@@ -107,7 +107,7 @@ public class User {
     }
 
     public String getPreferredWorkout() {
-        return preferred_workout;
+        return preferred_workout_location;
     }
 
     public int getAge() {
@@ -115,7 +115,7 @@ public class User {
     }
 
     public int getWeight() {
-        return weight;
+        return weight_kg;
     }
 
     public int getTargetWeight() {
