@@ -1,5 +1,6 @@
 package com.example.thiga.afrofitness_android.ui;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.thiga.afrofitness_android.R;
 import com.example.thiga.afrofitness_android.helper.LocaleHelper;
@@ -27,6 +30,10 @@ import com.example.thiga.afrofitness_android.ui.fragments.HomeFragment;
 import com.example.thiga.afrofitness_android.ui.fragments.InstructorsFragment;
 import com.example.thiga.afrofitness_android.ui.fragments.ProfileFragment;
 import com.example.thiga.afrofitness_android.ui.fragments.SessionsFragment;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
+import java.sql.Connection;
 
 import io.paperdb.Paper;
 
@@ -37,6 +44,8 @@ public class HomeActivity extends AppCompatActivity
 
     private TextView textViewFirstName;
     private TextView textViewLastName;
+    private static final String TAG = "Home";
+    private static final int DIALOG_REQUEST_FOR_ERROR = 8002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +60,9 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                startActivity(new Intent(getApplicationContext(),MapsActivity.class));
+                if(areServicesAvailable()) {
+                    startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                }
             }
         });
 
@@ -78,6 +89,24 @@ public class HomeActivity extends AppCompatActivity
         //loading home fragment by default
         displaySelectedScreen(R.id.nav_home);
 
+    }
+
+    public boolean areServicesAvailable(){
+        Log.d(TAG,"areServicesAvailable: checking google services version");
+        int av = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(HomeActivity.this );
+        if(av == ConnectionResult.SUCCESS){
+            Log.d(TAG,"areServicesAvailable: Google Play Services");
+            return true;
+        }
+        else if(GoogleApiAvailability.getInstance().isUserResolvableError(av)){
+            Log.d(TAG,"areServicesAvailable: An error occurred");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(HomeActivity.this,av,DIALOG_REQUEST_FOR_ERROR);
+            dialog.show();
+        }
+        else{
+            Toast.makeText(this,"Your device is unable to make map requests.",Toast.LENGTH_SHORT);
+        }
+        return false;
     }
 
     @Override

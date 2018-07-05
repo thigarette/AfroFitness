@@ -1,9 +1,12 @@
 package com.example.thiga.afrofitness_android.api;
 
+import com.example.thiga.afrofitness_android.models.GymLocation;
+import com.example.thiga.afrofitness_android.models.GymLocations;
 import com.example.thiga.afrofitness_android.models.Instructors;
 import com.example.thiga.afrofitness_android.models.Result;
 import com.example.thiga.afrofitness_android.models.Sessions;
 import com.example.thiga.afrofitness_android.models.User;
+import com.example.thiga.afrofitness_android.ui.MapsActivity;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -44,6 +47,8 @@ public interface ApiService {
             @Field("target_weight_kg") int target_weight
     );
 
+    @GET("/locations")
+    Call<GymLocations>getGymLocations();
 
     @GET("sessions/{id}")
     Call<Sessions> getSessions(@Path("id") int id);
