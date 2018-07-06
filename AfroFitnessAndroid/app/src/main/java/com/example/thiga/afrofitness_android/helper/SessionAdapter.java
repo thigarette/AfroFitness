@@ -31,11 +31,11 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
     @Override
     public void onBindViewHolder(SessionAdapter.ViewHolder holder, int position) {
         Session session = sessions.get(position);
-        holder.textViewExercise.setText(session.getExerciseType());
-        holder.textViewDate.setText(session.getDate());
-        holder.textViewLocation.setText(session.getLocationName());
-        holder.textViewReps.setText(String.valueOf(session.getNumberOfReps()));
-        holder.textViewSets.setText(String.valueOf(session.getNumberOfSets()));
+        holder.textViewExercise.setText("Exercise: "+session.getExerciseType());
+        holder.textViewDate.setText("Date: "+session.getDate());
+        holder.textViewLocation.setText("Location: "+session.getLocationName());
+        holder.textViewReps.setText(String.valueOf(session.getNumberOfReps())+" reps");
+        holder.textViewSets.setText(String.valueOf(session.getNumberOfSets())+" sets");
     }
 
 

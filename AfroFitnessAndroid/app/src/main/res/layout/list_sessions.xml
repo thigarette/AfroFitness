@@ -14,28 +14,43 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/text_view_exercise_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/text_view_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/text_view_location_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/text_view_no_of_reps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/text_view_no_of_sets"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

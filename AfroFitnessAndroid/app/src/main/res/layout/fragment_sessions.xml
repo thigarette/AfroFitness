@@ -8,9 +8,13 @@
 
     <Button
         android:id="@+id/button_add_workout"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/add_workout"/>
+        android:text="@string/add_workout"
+        android:background="@drawable/button_background_1"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFF"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_sessions"

@@ -142,7 +142,7 @@ public class SessionsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Workout Sessions");
+        getActivity().setTitle(R.string.workout_sessions);
         recyclerViewSessions = (RecyclerView) view.findViewById(R.id.recycler_view_sessions);
         recyclerViewSessions.setHasFixedSize(true);
         recyclerViewSessions.setLayoutManager(new LinearLayoutManager(getActivity()));

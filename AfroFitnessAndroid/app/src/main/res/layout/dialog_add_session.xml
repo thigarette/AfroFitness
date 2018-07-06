@@ -8,29 +8,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="@string/exercise_type" />
+            android:hint="@string/exercise_type"
+            android:layout_margin="5dp"/>
         <EditText
             android:id="@+id/add_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date"/>
+            android:hint="Date (YYYY-MM-DD Format)"
+            android:layout_margin="5dp"/>
         <EditText
             android:id="@+id/add_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Location"/>
+            android:hint="Location"
+            android:layout_margin="5dp"/>
         <EditText
             android:id="@+id/add_reps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Number of Reps"/>
+            android:hint="Number of Reps"
+            android:layout_margin="5dp"/>
         <EditText
             android:id="@+id/add_sets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Number of sets"/>
+            android:hint="Number of sets"
+            android:layout_margin="5dp"/>
 
 </LinearLayout>

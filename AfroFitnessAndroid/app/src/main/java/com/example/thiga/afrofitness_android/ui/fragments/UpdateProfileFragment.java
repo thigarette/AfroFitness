@@ -97,7 +97,7 @@ public class UpdateProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Edit Profile");
+        getActivity().setTitle(R.string.edit_profile);
 
         editTextFirstName = view.findViewById(R.id.update_first_name);
         editTextLastName = view.findViewById(R.id.update_last_name);

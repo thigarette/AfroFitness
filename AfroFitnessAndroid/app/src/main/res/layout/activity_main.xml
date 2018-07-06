@@ -6,26 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"/>
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/button_sign_in"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in"/>
+            android:background="@drawable/button_background_1"
+            android:text="@string/sign_in"
+            android:textColor="#FFF" />
 
         <Button
             android:id="@+id/button_sign_up"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"/>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_background_2"
+            android:text="@string/sign_up"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 

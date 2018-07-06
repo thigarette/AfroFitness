@@ -3,6 +3,7 @@ package com.example.thiga.afrofitness_android.helper;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.thiga.afrofitness_android.R;
 import com.example.thiga.afrofitness_android.ui.MapsActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -74,7 +75,7 @@ public class GymLocationMarkerTask extends AsyncTask<Void,Void,String>{
 //                }
 
                 MapsActivity.mMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.flex))
                         .title(jsonObj.getString("location_name"))
                         .snippet("Opening Time: "+jsonObj.getString("opening_time")+"\n"+
                         "Closing Time: "+jsonObj.getString("closing_time"))

@@ -87,7 +87,7 @@ public class InstructorsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Instructors");
+        getActivity().setTitle(R.string.instructors);
 
         recyclerViewInstructors = (RecyclerView) view.findViewById(R.id.recycler_view_instructors);
         recyclerViewInstructors.setHasFixedSize(true);

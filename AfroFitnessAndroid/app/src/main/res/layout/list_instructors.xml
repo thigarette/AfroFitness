@@ -16,22 +16,30 @@
             <TextView
                 android:id="@+id/text_view_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/text_view_gender"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/text_view_phone_number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/text_view_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20dp"/>
 
         </LinearLayout>
 

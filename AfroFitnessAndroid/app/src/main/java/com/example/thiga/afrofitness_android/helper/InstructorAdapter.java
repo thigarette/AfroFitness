@@ -31,10 +31,10 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
     @Override
     public void onBindViewHolder(InstructorAdapter.ViewHolder holder, int position) {
         Instructor instructor = instructors.get(position);
-        holder.textViewName.setText(instructor.getName());
-        holder.textViewGender.setText(instructor.getGender());
-        holder.textViewPhoneNumber.setText(instructor.getPhoneNumber());
-        holder.textViewEmail.setText(instructor.getEmail());
+        holder.textViewName.setText("Name: "+instructor.getName());
+        holder.textViewGender.setText("Gender: "+instructor.getGender());
+        holder.textViewPhoneNumber.setText("Phone Number: "+instructor.getPhoneNumber());
+        holder.textViewEmail.setText("Email: "+instructor.getEmail());
     }
 
 

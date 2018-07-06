@@ -103,7 +103,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Profile");
+        getActivity().setTitle(R.string.profile);
 
         textViewFirstName = view.findViewById(R.id.text_view_first_name);
         textViewLastName = view.findViewById(R.id.text_view_last_name);
@@ -116,14 +116,14 @@ public class ProfileFragment extends Fragment {
 
         User user = SharedPrefManager.getInstance(getActivity()).getUser();
 
-        textViewFirstName.setText(user.getFirstName());
-        textViewLastName.setText(user.getLastName());
-        textViewEmail.setText(user.getEmail());
-        textViewPrefLocation.setText(user.getPreferredWorkout());
-        textViewAge.setText(String.valueOf(user.getAge()));
-        textViewGender.setText(user.getGender());
-        textViewWeight.setText(String.valueOf(user.getWeight()));
-        textViewTargetWeight.setText(String.valueOf(user.getTargetWeight()));
+        textViewFirstName.setText("First Name: "+user.getFirstName());
+        textViewLastName.setText("Last Name: "+user.getLastName());
+        textViewEmail.setText("Email: "+user.getEmail());
+        textViewPrefLocation.setText("Preferred Workout Location: "+user.getPreferredWorkout());
+        textViewAge.setText("Age: "+String.valueOf(user.getAge()));
+        textViewGender.setText("Gender: "+user.getGender());
+        textViewWeight.setText("Weight: "+String.valueOf(user.getWeight()));
+        textViewTargetWeight.setText("Target Weight: "+String.valueOf(user.getTargetWeight()));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
