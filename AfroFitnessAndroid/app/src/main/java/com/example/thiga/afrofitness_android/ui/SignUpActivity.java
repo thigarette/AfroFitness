@@ -77,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onResponse(Call<Result> call, Response<Result> response) {
                 progressDialog.dismiss();
 
-                Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_LONG).show(); //Not showing message properly
+                Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_LONG).show();
                 if(!response.body().getError()){
                     finish();
                     SharedPrefManager.getInstance(getApplicationContext()).login(response.body().getUser());

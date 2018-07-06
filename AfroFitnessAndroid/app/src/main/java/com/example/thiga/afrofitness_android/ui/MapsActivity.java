@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.example.thiga.afrofitness_android.R;
 import com.example.thiga.afrofitness_android.api.ApiService;
 import com.example.thiga.afrofitness_android.api.ApiUrl;
+import com.example.thiga.afrofitness_android.helper.GymLocationMarkerTask;
 import com.example.thiga.afrofitness_android.models.GymLocations;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -37,6 +39,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,49 +58,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    public static GoogleMap mMap;
     private Boolean permissionsGranted;
     private static final int REQUEST_CODE = 1234;
     private static final String TAG = "Maps";
     private FusedLocationProviderClient fused;
-    private Context context;
-
+//    private LocationManager locationManager;
+//    private LocationListener locationListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getPermission();
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-               return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(ApiUrl.BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                ApiService service = retrofit.create(ApiService.class);
-
-                Call<GymLocations> call = service.getGymLocations();
-                call.enqueue(new Callback<GymLocations>() {
-                    @Override
-                    public void onResponse(Call<GymLocations> call, Response<GymLocations> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<GymLocations> call, Throwable t) {
-
-                    }
-                });
-                return null;            }
-        });
     }
 
     private void getPermission() {
@@ -130,7 +103,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     }
                     permissionsGranted = true;
-                    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
                     Log.d(TAG, "onRequestPermissionsResult: Permission Granted");
 
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -153,32 +125,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Location Found");
                             Location curLoc = (Location) task.getResult();
-                            moveCamera(new LatLng(curLoc.getLatitude(), curLoc.getLongitude()), 15f);
+//                            Circle circle = mMap.addCircle(new CircleOptions()
+//                                    .center(new LatLng(curLoc.getLatitude(), curLoc.getLongitude()))
+//                                    .radius(50000));
+                            //moveCamera(new LatLng(curLoc.getLatitude(),curLoc.getLongitude()), 10f);
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(curLoc.getLatitude(),curLoc.getLongitude()), 10f));
+                            Log.d(TAG, "Camera moved to current location");
                         } else {
                             Toast.makeText(MapsActivity.this, "Unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-//                location.addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        startActivity(new Intent(getApplicationContext(),MapsActivity.class));
-//                    }
-//                });
-//                location.addOnCanceledListener(new OnCanceledListener() {
-//                    @Override
-//                    public void onCanceled() {
-//                        startActivity(new Intent(getApplicationContext(),MapsActivity.class));
-//                    }
-//                });
             }
         } catch (SecurityException e) {
             Log.e(TAG, e.getMessage());
         }
-    }
-
-    private void moveCamera(LatLng latLng, float zoom) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom)); // Moves camera to specified coordinates
     }
 
     public void GPSCheck(Context context){
@@ -232,13 +193,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d(TAG, "onMapReady: Map is ready");
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
         if (permissionsGranted) {
-            GPSCheck(context);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -249,7 +204,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
+            getDeviceLocation();
             mMap.setMyLocationEnabled(true);
+            new GymLocationMarkerTask().execute();
         }
     }
 }

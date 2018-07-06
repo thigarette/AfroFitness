@@ -45,7 +45,7 @@ $app->post('/register',function(Request $request,Response $response){
             $responseData['message'] = 'This email is already in use';
         }
 
-        $response->getBody()->write(json_encode($responseData));
+    $response->getBody()->write(json_encode($responseData));
     }
 });
 
@@ -67,7 +67,7 @@ $app->post('/login',function(Request $request,Response $response){
             $responseData['error'] = true;
             $responseData['message'] = 'Invalid email or password';
         }
-        $response->getBody()->write(json_encode($responseData));
+    $response->getBody()->write(json_encode($responseData));
     }
 });
 
@@ -75,7 +75,8 @@ $app->get('/user/{email}',function (Request $request, Response $response){
     $email = $request->getAttribute('email');
     $db = new user();
     $user = $db->getUserArray($email);
-    $response->getBody()->write(json_encode(array("user" => $user)));
+    $data = array("user" => $user);
+    $response->getBody()->write(json_encode($data));
 });
 
 $app->post('/update/{id}', function (Request $request, Response $response) {
@@ -107,15 +108,15 @@ $app->post('/update/{id}', function (Request $request, Response $response) {
             $responseData['message'] = 'Update Failed';
         }
 
-        $response->getBody()->write(json_encode($responseData));
+    $response->getBody()->write(json_encode($responseData));
     }
 });
 
 $app->post('/addsession', function (Request $request, Response $response) {
-    if (areTheseParametersAvailable(array('date', 'location_id', 'exercise_type', 'number_of_reps','number_of_sets','user_id'))) {
+    if (areTheseParametersAvailable(array('date', 'location_name', 'exercise_type', 'number_of_reps','number_of_sets','user_id'))) {
         $requestData = $request->getParsedBody();
         $date = $requestData['date'];
-        $location = $requestData['location_id'];
+        $location_name = $requestData['location_name'];
         $exercise_type = $requestData['exercise_type'];
         $number_of_reps = $requestData['number_of_reps'];
         $number_of_sets = $requestData['number_of_sets'];
@@ -125,7 +126,7 @@ $app->post('/addsession', function (Request $request, Response $response) {
 
         $responseData = array();
 
-        if ($db->addSession($date,$location,$exercise_type,$number_of_reps,$number_of_sets,$user)) {
+        if ($db->addSession($date,$location_name,$exercise_type,$number_of_reps,$number_of_sets,$user)) {
             $responseData['error'] = false;
             $responseData['message'] = 'Workout Session Added Successfully';
         } else {
@@ -133,7 +134,7 @@ $app->post('/addsession', function (Request $request, Response $response) {
             $responseData['message'] = 'Could Not Add Workout Session';
         }
 
-        $response->getBody()->write(json_encode($responseData));
+    $response->getBody()->write(json_encode($responseData));
     }
 });
 
@@ -141,20 +142,22 @@ $app->get('/sessions/{id}', function (Request $request, Response $response) {
     $user_id = $request->getAttribute('id');
     $db = new user();
     $sessions = $db->getSessions($user_id);
-    $response->getBody()->write(json_encode(array("sessions" => $sessions)));
+    $data = array("sessions" => $sessions);
+    $response->getBody()->write(json_encode($data));
 });
 
 $app->get('/locations', function (Request $request, Response $response) {
     $db = new user();
     $locations = $db->getLocations();
-    $response->getBody()->write(json_encode(array("locations" => $locations)));
+    $data = array("locations" => $locations);
+    $response->getBody()->write(json_encode($data));
 });
-
 
 $app->get('/instructors', function (Request $request, Response $response) {
     $db = new instructor();
     $instructors = $db->getAllInstructors();
-    $response->getBody()->write(json_encode(array("instructors" => $instructors)));
+    $data = array("instructors" => $instructors);
+    $response->getBody()->write(json_encode($data));
 });
 
 function areTheseParametersAvailable($required_fields){

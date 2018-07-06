@@ -4,8 +4,10 @@ import com.example.thiga.afrofitness_android.models.GymLocation;
 import com.example.thiga.afrofitness_android.models.GymLocations;
 import com.example.thiga.afrofitness_android.models.Instructors;
 import com.example.thiga.afrofitness_android.models.Result;
+import com.example.thiga.afrofitness_android.models.Session;
 import com.example.thiga.afrofitness_android.models.Sessions;
 import com.example.thiga.afrofitness_android.models.User;
+import com.example.thiga.afrofitness_android.models.WorkoutSessionResult;
 import com.example.thiga.afrofitness_android.ui.MapsActivity;
 
 import retrofit2.Call;
@@ -46,9 +48,16 @@ public interface ApiService {
             @Field("weight_kg") int weight,
             @Field("target_weight_kg") int target_weight
     );
-
-    @GET("/locations")
-    Call<GymLocations>getGymLocations();
+    @FormUrlEncoded
+    @POST("addsession")
+    Call<WorkoutSessionResult>addSession(
+            @Field("exercise_type") String exercise_type,
+            @Field("date") String date,
+            @Field("location_name") String location_name,
+            @Field("number_of_reps") String number_of_reps,
+            @Field("number_of_sets") String number_of_sets,
+            @Field("user_id")int user_id
+    );
 
     @GET("sessions/{id}")
     Call<Sessions> getSessions(@Path("id") int id);

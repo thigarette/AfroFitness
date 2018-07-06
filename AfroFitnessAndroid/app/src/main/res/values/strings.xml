@@ -49,4 +49,6 @@
     <string name="target_weight_kg">Target Weight(kg)</string>
     <string name="update_profile">Update Profile</string>
     <string name="title_activity_maps">Map</string>
+    <string name="add_workout">Add Workout</string>
+    <string name="exercise_type">Exercise Type</string>
 </resources>

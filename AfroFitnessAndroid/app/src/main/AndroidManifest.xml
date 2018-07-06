@@ -55,8 +55,7 @@
 
         <activity
             android:name=".ui.MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:alwaysRetainTaskState="true"></activity>
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>
