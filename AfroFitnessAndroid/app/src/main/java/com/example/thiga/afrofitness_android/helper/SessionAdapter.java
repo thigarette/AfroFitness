@@ -21,6 +21,10 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         this.mContext = mContext;
     }
 
+    public SessionAdapter(Context current){
+        this.mContext = current;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -31,9 +35,9 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
     @Override
     public void onBindViewHolder(SessionAdapter.ViewHolder holder, int position) {
         Session session = sessions.get(position);
-        holder.textViewExercise.setText("Exercise: "+session.getExerciseType());
-        holder.textViewDate.setText("Date: "+session.getDate());
-        holder.textViewLocation.setText("Location: "+session.getLocationName());
+        holder.textViewExercise.setText(String.format("%1$s : %2$s",mContext.getResources().getString(R.string.exercise_type),session.getExerciseType()));
+        holder.textViewDate.setText(String.format("%1$s : %2$s",mContext.getResources().getString(R.string.date),session.getDate()));
+        holder.textViewLocation.setText(String.format("%1$s : %2$s",mContext.getResources().getString(R.string.location),session.getLocationName()));
         holder.textViewReps.setText(String.valueOf(session.getNumberOfReps())+" reps");
         holder.textViewSets.setText(String.valueOf(session.getNumberOfSets())+" sets");
     }

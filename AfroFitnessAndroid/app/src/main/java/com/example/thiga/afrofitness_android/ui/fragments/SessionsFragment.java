@@ -113,7 +113,7 @@ public class SessionsFragment extends Fragment {
                 final EditText editTextSets = promptsView.findViewById(R.id.add_sets);
 
                 alertDialogBuilder
-                        .setPositiveButton("Add Workout", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getString(R.string.add_workout), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String exerciseType = editTextExerciseType.getText().toString().trim();
@@ -125,7 +125,7 @@ public class SessionsFragment extends Fragment {
                                 addSession(exerciseType,date,location,reps,sets,userId);
                             }
                         })
-                        .setNegativeButton("Cancel",
+                        .setNegativeButton(R.string.cancel,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -175,7 +175,7 @@ public class SessionsFragment extends Fragment {
 
     private void addSession(String exercise,String date,String location,String reps,String sets,int user_id){
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
-        progressDialog.setMessage("Adding workout session...");
+        progressDialog.setMessage(getString(R.string.adding_workout_session));
         progressDialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()

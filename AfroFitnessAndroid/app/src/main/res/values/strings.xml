@@ -51,4 +51,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="add_workout">Add Workout</string>
     <string name="exercise_type">Exercise Type</string>
+    <string name="adding_workout_session">Adding workout session...</string>
+    <string name="cancel">Cancel</string>
+    <string name="date">Date</string>
+    <string name="location">Location</string>
 </resources>

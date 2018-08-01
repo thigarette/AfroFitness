@@ -33,4 +33,10 @@
     <string name="action_sign_in">Ingia au Jiandikisha</string>
     <string name="password">Nenosiri</string>
     <string name="update_profile">Sasisha Wasifu</string>
+    <string name="adding_workout_session">Kipindi cha mazoezi kinaongezwa...</string>
+    <string name="add_workout">Ongeza Kipindi Cha Mazoezi</string>
+    <string name="title_activity_maps">Ramani</string>
+    <string name="exercise_type">Aina Ya Mazoezi</string>
+    <string name="cancel">Funga</string>
+    <string name="location">Eneo</string>
 </resources>

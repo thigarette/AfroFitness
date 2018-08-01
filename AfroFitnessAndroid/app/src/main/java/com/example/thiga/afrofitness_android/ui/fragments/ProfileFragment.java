@@ -116,14 +116,14 @@ public class ProfileFragment extends Fragment {
 
         User user = SharedPrefManager.getInstance(getActivity()).getUser();
 
-        textViewFirstName.setText("First Name: "+user.getFirstName());
-        textViewLastName.setText("Last Name: "+user.getLastName());
-        textViewEmail.setText("Email: "+user.getEmail());
-        textViewPrefLocation.setText("Preferred Workout Location: "+user.getPreferredWorkout());
-        textViewAge.setText("Age: "+String.valueOf(user.getAge()));
-        textViewGender.setText("Gender: "+user.getGender());
-        textViewWeight.setText("Weight: "+String.valueOf(user.getWeight()));
-        textViewTargetWeight.setText("Target Weight: "+String.valueOf(user.getTargetWeight()));
+        textViewFirstName.setText(String.format("%1$s : %2$s",getResources().getString(R.string.first_name),user.getFirstName()));
+        textViewLastName.setText(String.format("%1$s : %2$s",getResources().getString(R.string.last_name),user.getLastName()));
+        textViewEmail.setText(String.format("%1$s : %2$s",getResources().getString(R.string.email),user.getEmail()));
+        textViewPrefLocation.setText(String.format("%1$s : %2$s",getResources().getString(R.string.preferred_workout_location),user.getPreferredWorkout()));
+        textViewAge.setText(String.format("%1$s : %2$s",getResources().getString(R.string.age),String.valueOf(user.getAge())));
+        textViewGender.setText(String.format("%1$s : %2$s",getResources().getString(R.string.gender),user.getGender()));
+        textViewWeight.setText(String.format("%1$s : %2$s",getResources().getString(R.string.weight_kg),String.valueOf(user.getWeight())));
+        textViewTargetWeight.setText(String.format("%1$s : %2$s",getResources().getString(R.string.target_weight_kg),String.valueOf(user.getTargetWeight())));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
