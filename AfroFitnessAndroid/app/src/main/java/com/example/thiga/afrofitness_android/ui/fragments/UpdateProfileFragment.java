@@ -132,7 +132,7 @@ public class UpdateProfileFragment extends Fragment {
 
     private void updateUser(){
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Updating...");
+        progressDialog.setMessage(String.format("%s...",getString(R.string.updating)));
         progressDialog.show();
 
         //final RadioButton radioSex = (RadioButton) getActivity().findViewById(radioGender.getCheckedRadioButtonId());

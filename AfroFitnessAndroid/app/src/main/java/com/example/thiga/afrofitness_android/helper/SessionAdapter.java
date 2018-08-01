@@ -38,8 +38,8 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         holder.textViewExercise.setText(String.format("%1$s : %2$s",mContext.getResources().getString(R.string.exercise_type),session.getExerciseType()));
         holder.textViewDate.setText(String.format("%1$s : %2$s",mContext.getResources().getString(R.string.date),session.getDate()));
         holder.textViewLocation.setText(String.format("%1$s : %2$s",mContext.getResources().getString(R.string.location),session.getLocationName()));
-        holder.textViewReps.setText(String.valueOf(session.getNumberOfReps())+" reps");
-        holder.textViewSets.setText(String.valueOf(session.getNumberOfSets())+" sets");
+        holder.textViewReps.setText(String.format("%1$s : %2$s",String.valueOf(session.getNumberOfReps()),mContext.getResources().getString(R.string.reps)));
+        holder.textViewSets.setText(String.format("%1$s : %2$s",String.valueOf(session.getNumberOfSets()),mContext.getResources().getString(R.string.sets)));
     }
 
 

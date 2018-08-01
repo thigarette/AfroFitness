@@ -14,28 +14,28 @@
             android:id="@+id/add_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date (YYYY-MM-DD Format)"
+            android:hint="@string/date_format"
             android:layout_margin="5dp"/>
         <EditText
             android:id="@+id/add_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Location"
+            android:hint="@string/location"
             android:layout_margin="5dp"/>
         <EditText
             android:id="@+id/add_reps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Number of Reps"
+            android:hint="@string/number_of_reps"
             android:layout_margin="5dp"/>
         <EditText
             android:id="@+id/add_sets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Number of sets"
+            android:hint="@string/number_of_sets"
             android:layout_margin="5dp"/>
 
 </LinearLayout>

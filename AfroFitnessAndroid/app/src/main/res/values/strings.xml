@@ -53,6 +53,14 @@
     <string name="exercise_type">Exercise Type</string>
     <string name="adding_workout_session">Adding workout session...</string>
     <string name="cancel">Cancel</string>
-    <string name="date">Date</string>
     <string name="location">Location</string>
+    <string name="reps" translatable="false">reps</string>
+    <string name="sets" translatable="false">sets</string>
+    <string name="date">Date</string>
+    <string name="name">Name</string>
+    <string name="phone_no">Phone Number</string>
+    <string name="updating" translatable="false">Updating</string>
+    <string name="date_format">Date (YYYY-MM-DD Format)</string>
+    <string name="number_of_reps">Number of Reps</string>
+    <string name="number_of_sets">Number of sets</string>
 </resources>
